@@ -3,7 +3,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 40px;
+  padding: 34px 0 20px;
+  margin: 18px;
 }
 .footer__text {
   height: 16px;
