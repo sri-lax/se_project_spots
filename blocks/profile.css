@@ -6,20 +6,55 @@
 
 .profile__avatar {
   margin-right: 20px;
+  height: 190px;
+  width: 190px;
 }
 .profile__column {
   display: flex;
   flex-direction: column;
 }
 .profile__name {
-  margin: 0;
-}
-.profile__discription {
   margin: 0 0 12px;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1;
+}
+.profile__description {
+  margin: 0 0 12px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
 }
 .profile__edit-btn {
   margin-top: auto;
 }
 .profile__add-btn {
   margin-left: auto;
+}
+@media screen and (max-width: 627px) {
+  .profile {
+    flex-direction: column;
+    max-width: 288px;
+    align-items: center;
+    text-align: center;
+    padding-top: 20px;
+  }
+  .profile__avatar {
+    margin-right: 0 0 12px;
+    height: 80px;
+    width: 80px;
+  }
+  .profile__name {
+    font-size: 20px;
+    margin: 0 0 6px;
+  }
+  .profile__column {
+    margin: 0 0 20px;
+  }
+  .profile__description {
+    margin: 0 0 32px;
+  }
+  .profile__add-btn {
+    margin: 0;
+  }
 }

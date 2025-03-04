@@ -1,9 +1,6 @@
-.card {
-  max-width: 413px;
-}
 .card__image {
   height: 413px;
-  width: 413px;
+  width: 100%;
   object-fit: cover;
   display: block;
 }
@@ -12,6 +9,9 @@
   align-items: center;
   justify-content: space-between;
 }
+.card__litle {
+  font-weight: 500;
+}
 .card__like-btn {
   background-image: url(../images/hart.png);
   width: 23px;
@@ -19,4 +19,9 @@
   border: none;
   background-color: transparent;
   opacity: 40%;
+}
+@media screen and (max-width: 627px) {
+  .card__image {
+    height: 288px;
+  }
 }
