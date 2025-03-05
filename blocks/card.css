@@ -3,14 +3,15 @@
   width: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 8px;
 }
 .card__content {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.card__litle {
-  margin-bottom: 0;
+.card__title {
+  margin: 32px 0 0;
   font-size: 20px;
   font-weight: 500;
   line-height: 24px;
@@ -40,5 +41,10 @@
 @media screen and (max-width: 627px) {
   .card__image {
     height: 288px;
+  }
+  .card__title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
   }
 }

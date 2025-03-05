@@ -40,6 +40,7 @@
 }
 .profile__edit-btn {
   color: rgba(33, 33, 33, 0.7);
+  opacity: 0.7;
   margin-top: auto;
   background: rgba(252, 245, 229, 1);
   border: none;
@@ -51,7 +52,7 @@
   line-height: 16px;
 }
 .profile__edit-btn:hover {
-  opacity: 0.7;
+  opacity: 1;
   cursor: pointer;
   transition: opacity 0.5s;
 }
