@@ -10,9 +10,21 @@
   justify-content: space-between;
 }
 .card__litle {
+  margin-bottom: 0;
+  font-size: 20px;
   font-weight: 500;
+  line-height: 24px;
+  border-radius: 8px;
+  color: rgba(33, 33, 33, 1);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 420px;
 }
 .card__like-btn {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
   background-image: url(../images/hart.png);
   width: 23px;
   height: 20px;
