@@ -11,6 +11,7 @@
   justify-content: space-between;
 }
 .card__title {
+  margin: 20px 0;
   font-size: 20px;
   font-weight: 500;
   line-height: 24px;
@@ -25,7 +26,7 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url(../images/hart.png);
+  background-image: url(../images/hart.svg);
   width: 23px;
   height: 20px;
   border: none;

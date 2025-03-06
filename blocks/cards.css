@@ -1,9 +1,9 @@
 .cards {
-  padding: 20px 40px;
 }
 .cards__list {
+  border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
   list-style-type: none;
-  padding: 0;
+  padding: 20px 0;
   margin: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, 413px);

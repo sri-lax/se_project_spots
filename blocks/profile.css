@@ -114,4 +114,8 @@
     width: 100%;
     top: -8px;
   }
+  .profile__edit-btn {
+    line-height: 100%;
+    justify-content: center;
+  }
 }
