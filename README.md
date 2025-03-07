@@ -22,3 +22,13 @@ This project is made so all the elements are displayed correctly on popular scre
 **Images**
 
 ![Home page](./images/Screenshot%20.png)
+
+## Deployment
+
+- Link to deployed project on GitHub Pages.
+
+  https://sri-lax.github.io/se_project_spots/
+
+## Recorded video about project
+
+https://www.loom.com/share/cb79c9b6d24a42fa83f9e665e479912e?sid=9bbb3e9f-b8c1-495c-a8e0-7a63ca5d7b93
