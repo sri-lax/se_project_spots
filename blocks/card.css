@@ -11,7 +11,7 @@
   justify-content: space-between;
 }
 .card__title {
-  margin: 20px 0;
+  margin: 12px 0 0;
   font-size: 20px;
   font-weight: 500;
   line-height: 24px;
@@ -23,6 +23,7 @@
   max-width: 420px;
 }
 .card__like-btn {
+  margin: 12px 0 0;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -38,7 +39,7 @@
   cursor: pointer;
   transition: opacity 0.5s;
 }
-@media screen and (max-width: 627px) {
+@media screen and (max-width: 250px) {
   .card__image {
     height: 288px;
   }
