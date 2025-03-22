@@ -34,12 +34,17 @@
   height: 40px;
   display: flex;
   justify-content: center;
-  background: none;
   border: none;
-  color: rgba(33, 33, 33, 1);
+  background-color: transparent;
+  opacity: 40%;
+}
+.modal__close-btn:hover {
+  opacity: 1;
+  cursor: pointer;
+  transition: opacity 0.5s;
 }
 .modal__title {
-  font-family: poppins, Arial, Helvetica, sans-serif;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
   font-size: 32px;
   font-weight: 500;
   line-height: 100%;
@@ -47,7 +52,7 @@
   margin: 0 0 32px;
 }
 .modal__label {
-  font-family: poppins, Arial, Helvetica, sans-serif;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 100%;
@@ -57,14 +62,21 @@
   margin-bottom: 32px;
 }
 .modal__input {
-  font-family: poppins, Arial, Helvetica, sans-serif;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
   font-size: 20px;
   font-weight: 500;
   line-height: 100%;
   padding: 16px 12px;
+  border-radius: 8px;
+  opacity: 40%;
+}
+.modal__input:hover {
+  opacity: 0.8;
+  cursor: pointer;
+  transition: opacity 0.5s;
 }
 .modal__submit-btn {
-  font-family: poppins, Arial, Helvetica, sans-serif;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 100%;
@@ -74,6 +86,11 @@
   background-color: rgba(33, 33, 33, 1);
   border-radius: 8px;
   border: none;
+}
+.modal__submit-btn:hover {
+  opacity: 0.8;
+  cursor: pointer;
+  transition: opacity 0.5s;
 }
 
 @media screen and (max-width: 627px) {
@@ -92,6 +109,7 @@
     top: 12px;
     right: 12px;
   }
+
   .modal__submit-btn {
     width: 100%;
   }
