@@ -59,13 +59,29 @@
   height: 32px;
   top: 10px;
   left: 371px;
+  transition: opacity 0.3s ease;
   border: none;
   background-color: transparent;
 }
 
-.card__delete-btn_liked:hover {
+.card__delete-btn:hover {
   background-image: url(../images/deleteHover.svg);
+  cursor: pointer;
 }
+
+.card__delete-btn:active::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px; /* Adjust size to match the image */
+  height: 50px;
+  border: 2px solid black; /* Creates the black ring */
+  border-radius: 50%; /* Ensures a perfect circle */
+  transform: translate(-50%, -50%);
+  background: transparent;
+}
+
 @media screen and (max-width: 627px) {
   .card__image {
     height: 288px;
