@@ -34,6 +34,7 @@
   background: none;
   max-width: none;
   width: auto;
+  border-radius: 4px;
 }
 .modal__image {
   border-radius: 8px;
@@ -74,7 +75,7 @@
   opacity: 40%;
   transition: opacity 1s linear;
 }
-.modal__close_type_preview {
+.modal__close-btn_type_preview {
   position: absolute;
   background-image: url(../images/preview\ close.svg);
   top: 0;
@@ -148,9 +149,15 @@
   .modal__container {
     padding: 12px;
   }
-  .modal__close_type_preview {
-    top: 12px;
-    right: 125px;
+  .modal__close-btn_type_preview {
+    width: 40px;
+    height: 40px;
+    top: -40px;
+    right: 0;
+  }
+  .modal__container_type_preview {
+    width: 100%;
+    max-width: 90vw;
   }
   .modal__title {
     font-size: 20px;

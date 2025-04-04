@@ -45,6 +45,7 @@
 .card__like-btn_liked {
   background-image: url(../images/redheart.svg);
   opacity: 1;
+  background-color: transparent;
 }
 .card__like-btn_liked:hover {
   background-image: url(../images/lightRed.svg);
@@ -91,5 +92,11 @@
     font-size: 16px;
     font-weight: 500;
     line-height: 16px;
+  }
+  .card__delete-btn {
+    width: 32px;
+    height: 32px;
+    top: 10px;
+    left: 246px;
   }
 }
