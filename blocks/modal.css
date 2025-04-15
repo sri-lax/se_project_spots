@@ -158,6 +158,9 @@
   transition: opacity 0.5s;
 }
 
+.modal__button_inactive {
+  background-color: rgba(33, 33, 33, 0.3);
+}
 @media screen and (max-width: 627px) {
   .modal {
     padding: 0 10px;
