@@ -117,12 +117,28 @@
   line-height: 100%;
   padding: 16px 12px;
   border-radius: 8px;
+  margin: 8px 0 0;
   opacity: 40%;
 }
 .modal__input:hover {
   opacity: 0.8;
   cursor: pointer;
   transition: opacity 0.5s;
+}
+
+.modal__input_type_error {
+  border: 1px solid rgba(255, 0, 0, 0.7);
+}
+
+.modal__error {
+  display: block;
+  margin-top: 8px;
+  color: rgba(255, 0, 0, 0.7);
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 110%;
+  letter-spacing: 0%;
 }
 .modal__submit-btn {
   font-family: Poppins, Arial, Helvetica, sans-serif;
