@@ -26,24 +26,33 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonEl) => {
   if (hasInvalidInput(inputList)) {
-    buttonEl.classList.add("modal__button_inactive");
-    buttonEl.disabled = true;
+    disableButton(buttonEl);
   } else {
     buttonEl.classList.remove("modal__button_inactive");
     buttonEl.disabled = false;
   }
 };
 
+const disableButton = (buttonEl) => {
+  buttonEl.disabled = true;
+  buttonEl.classList.add("modal__button_inactive");
+};
+
+const resetValidation = (formEl, inputList) => {
+  inputList.forEach((input) => {
+    hideInputError(formEl, input);
+  });
+};
+
 const setEventListeners = (formEl) => {
   const inputList = Array.from(formEl.querySelectorAll(".modal__input"));
-  const buttonElement = formEl.querySelector(".modal__submit-btn");
-  //todo handle initial state
-  //toggleButtonState(inputList, buttonElement);
+  const buttonEl = formEl.querySelector(".modal__submit-btn");
+  toggleButtonState(inputList, buttonEl);
 
   inputList.forEach((inputEl) => {
     inputEl.addEventListener("input", function () {
       checkInputValidity(formEl, inputEl);
-      toggleButtonState(inputList, buttonElement);
+      toggleButtonState(inputList, buttonEl);
     });
   });
 };
@@ -55,3 +64,5 @@ const enableValidation = () => {
   });
 };
 enableValidation();
+
+export { disableButton, resetValidation };
