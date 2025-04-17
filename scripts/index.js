@@ -1,5 +1,5 @@
 import initialCards from "./cards.js";
-import { disableButton, resetValidation } from "./validation.js";
+import { disableButton, resetValidation, settings } from "./validation.js";
 // Profile elements
 const profileEditButton = document.querySelector(".profile__edit-btn");
 const cardModalBtn = document.querySelector(".profile__add-btn");
@@ -53,7 +53,7 @@ function handleAddCardSubmit(evt) {
   cardsList.prepend(cardEl);
   //cardForm.reset();
   evt.target.reset();
-  disableButton(cardSubmitButton);
+  disableButton(cardSubmitButton, settings);
   //console.log("About to close modal");
   closeModal(cardModal);
   //console.log("Modal should be closed");
@@ -98,10 +98,11 @@ function getCardElement(data) {
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
-  resetValidation(editFormElement, [
-    editModalNameInput,
-    editModalDescriptionInput,
-  ]);
+  resetValidation(
+    editFormElement,
+    [editModalNameInput, editModalDescriptionInput],
+    settings
+  );
 
   openModal(editModal);
 });
