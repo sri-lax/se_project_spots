@@ -102,6 +102,7 @@
 }
 .modal__label {
   font-family: Poppins, Arial, Helvetica, sans-serif;
+  color: (33, 33, 33, 0.4);
   font-size: 16px;
   font-weight: 500;
   line-height: 100%;
@@ -112,6 +113,7 @@
 }
 .modal__input {
   font-family: Poppins, Arial, Helvetica, sans-serif;
+  color: rgba(33, 33, 33, 0.3);
   font-size: 20px;
   font-weight: 500;
   line-height: 100%;
@@ -121,13 +123,12 @@
   opacity: 40%;
 }
 .modal__input:hover {
-  opacity: 0.8;
   cursor: pointer;
   transition: opacity 0.5s;
 }
 
 .modal__input_type_error {
-  border: 1px solid rgba(255, 0, 0, 0.7);
+  border: 1px solid rgba(255, 0, 0, 0.6);
 }
 
 .modal__error {

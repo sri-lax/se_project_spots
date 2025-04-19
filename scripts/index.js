@@ -1,5 +1,5 @@
 import initialCards from "./cards.js";
-import { disableButton, resetValidation, settings } from "./validation.js";
+//import { disableButton, resetValidation, settings } from "./validation.js";
 // Profile elements
 const profileEditButton = document.querySelector(".profile__edit-btn");
 const cardModalBtn = document.querySelector(".profile__add-btn");
@@ -33,9 +33,18 @@ const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 
 function openModal(modal) {
+  function handleEscClose(evt) {
+    if (evt.key === "Escape") {
+      closeModal(modal);
+    }
+  }
+  document.addEventListener("keydown", handleEscClose);
   modal.classList.add("modal_is-opened");
+  modal._handleEscClose = handleEscClose;
 }
+
 function closeModal(modal) {
+  document.removeEventListener("keydown", modal._handleEscClose);
   modal.classList.remove("modal_is-opened");
 }
 
