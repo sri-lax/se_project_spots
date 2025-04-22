@@ -72,21 +72,22 @@
   display: flex;
   justify-content: center;
   border: none;
-  background-color: transparent;
   opacity: 40%;
+  background-color: transparent;
+
   transition: opacity 1s linear;
 }
 .modal__close-btn_type_preview {
   position: absolute;
-  background-image: url(../images/preview\ close.svg);
+  background-image: url(../images/CloseIcon.svg);
+  color: rgba(33, 33, 33, 0.4);
   top: 0;
   right: -40px;
-  opacity: 1;
   display: flex;
   justify-content: center;
   border: none;
   background-color: transparent;
-  transition: opacity 1s linear;
+  transition: opacity 0.3 ease;
 }
 .modal__close-btn:hover {
   opacity: 1;
@@ -114,24 +115,21 @@
 }
 .modal__input {
   font-family: Poppins, Arial, Helvetica, sans-serif;
-  border: 1px solid rgba(33, 33, 33, 1);
+  border: 1px solid rgba(33, 33, 33, 0.4);
   font-size: 20px;
   font-weight: 500;
   line-height: 100%;
   padding: 16px 12px;
   border-radius: 8px;
   margin: 8px 0 0;
-  opacity: 40%;
 }
 .modal__input:hover {
   cursor: pointer;
   border-color: rgba(33, 33, 33, 1);
 }
-
 .modal__input_type_error {
   border: 1px solid rgba(255, 0, 0, 0.6);
 }
-
 .modal__error {
   display: block;
   margin-top: 8px;
@@ -140,7 +138,6 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 110%;
-  letter-spacing: 0%;
 }
 .modal__submit-btn {
   font-family: Poppins, Arial, Helvetica, sans-serif;
@@ -159,13 +156,17 @@
   cursor: pointer;
   transition: opacity 0.5s;
 }
-
 .modal__button_inactive {
   background-color: rgba(33, 33, 33, 0.3);
 }
 @media screen and (max-width: 627px) {
   .modal {
     padding: 0 10px;
+  }
+  .modal__image {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
   }
   .modal__container {
     padding: 12px;
@@ -175,6 +176,7 @@
     height: 40px;
     top: -40px;
     right: 0;
+    background-size: 40px 40px;
   }
   .modal__image {
     width: 100%;
@@ -183,6 +185,8 @@
   .modal__container_type_preview {
     width: 100%;
     max-width: 282px;
+    margin: 0;
+    padding: 0;
   }
   .modal__title {
     font-size: 20px;
@@ -193,7 +197,6 @@
     top: 12px;
     right: 12px;
   }
-
   .modal__submit-btn {
     width: 100%;
   }

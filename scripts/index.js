@@ -1,6 +1,5 @@
-import initialCards from "./cards.js";
-//import { disableButton, resetValidation, settings } from "./validation.js";
-// Profile elements
+//import initialCards from "./cards.js";
+
 const profileEditButton = document.querySelector(".profile__edit-btn");
 const cardModalBtn = document.querySelector(".profile__add-btn");
 const profileName = document.querySelector(".profile__name");
