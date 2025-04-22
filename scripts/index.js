@@ -47,6 +47,14 @@ function closeModal(modal) {
   modal.classList.remove("modal_is-opened");
 }
 
+document.querySelectorAll(".modal").forEach((modal) => {
+  modal.addEventListener("click", (event) => {
+    if (event.target.classList.contains("modal_is-opened")) {
+      closeModal(modal);
+    }
+  });
+});
+
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = editModalNameInput.value;
