@@ -17,8 +17,8 @@ const api = new Api({
 });
 
 api
-  .getInitialCards()
-  .then((cards) => {
+  .getAppInfo()
+  .then(([cards]) => {
     cards.forEach((item) => {
       const cardEl = getCardElement(item);
       cardsList.append(cardEl);
