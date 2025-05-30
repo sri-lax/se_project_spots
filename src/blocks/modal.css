@@ -72,9 +72,9 @@
   display: flex;
   justify-content: center;
   border: none;
+  visibility: visible;
   opacity: 40%;
   background-color: transparent;
-
   transition: opacity 1s linear;
 }
 .modal__close-btn_type_preview {

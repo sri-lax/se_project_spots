@@ -35,7 +35,7 @@ const cardModalBtn = document.querySelector(".profile__add-btn");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
-// form elements
+// Edit form elements
 const editModal = document.querySelector("#edit-modal");
 const editFormElement = document.querySelector(".modal__form");
 const editModalCloseBtn = document.querySelector(".modal__close-btn");
@@ -44,6 +44,8 @@ const editModalNameInput = document.querySelector("#profile-name-input");
 const editModalDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
+
+//Card Modal Form Elements
 
 const cardModal = document.querySelector("#add-card-modal");
 const cardForm = cardModal.querySelector(".modal__form");
@@ -114,6 +116,24 @@ function handleAddCardSubmit(evt) {
   //console.log("Modal should be closed");
 }
 
+function handleAvatarSubmit(evt) {
+  evt.preventDefault();
+
+  api
+    .editAvatarUserInfo(avatarInputEl.value)
+    .then((data) => {
+      console.log("Updated avatar:", data);
+      document.querySelector(".profile__avatar").src = data.avatar;
+      closeModal(avatarModal);
+      avatarForm.reset();
+      disableButton(avatarSubmitButton, settings);
+    })
+    .catch((error) => {
+      error.json().then((data) => console.error("Error details:", data)); // Print server response
+      alert("Failed to update avatar. Please try again.");
+    });
+}
+
 function getCardElement(data) {
   const cardElement = cardTemplate.content
     .querySelector(".card")
@@ -179,6 +199,26 @@ cardPreviewCloseBtn.addEventListener("click", () => {
 });
 
 editFormElement.addEventListener("submit", handleEditFormSubmit);
+
 cardForm.addEventListener("submit", handleAddCardSubmit);
+
+//Avatar Modal Form Elements
+
+const avatarModalBtn = document.querySelector(".profile__avatar-btn");
+const avatarModal = document.querySelector("#avatar-modal");
+const avatarCloseBtn = avatarModal.querySelector(".modal__close-btn");
+const avatarSubmitButton = avatarModal.querySelector(".modal__submit-btn");
+const avatarForm = avatarModal.querySelector(".modal__form");
+const avatarInputEl = avatarModal.querySelector("#profile-avatar-input");
+
+avatarModalBtn.addEventListener("click", () => {
+  openModal(avatarModal);
+});
+
+avatarCloseBtn.addEventListener("click", () => {
+  closeModal(avatarModal);
+});
+
+avatarForm.addEventListener("submit", handleAvatarSubmit);
 
 enableValidation(settings);
