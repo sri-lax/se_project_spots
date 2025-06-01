@@ -15,7 +15,23 @@ class Api {
       if (res.ok) {
         return res.json();
       }
-      Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  createCard({ name, link }) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name, // Card title
+        link: link, // Image URL
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json(); // Return the newly created card data
+      }
+      return Promise.reject(`Error: ${res.status}`); // Handle errors
     });
   }
 
@@ -55,6 +71,19 @@ class Api {
       body: JSON.stringify({
         avatar,
       }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+      // handle the response
+    });
+  }
+
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
+      method: "DELETE",
+      headers: this._headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();

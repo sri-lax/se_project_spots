@@ -63,6 +63,8 @@ const cardPreviewCloseBtn = previewModal.querySelector(".modal__close-btn");
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 
+let selectedCard, selectedCardId;
+
 function openModal(modal) {
   function handleEscClose(evt) {
     if (evt.key === "Escape") {
@@ -105,15 +107,23 @@ function handleEditFormSubmit(evt) {
 
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
+
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
-  const cardEl = getCardElement(inputValues);
-  cardsList.prepend(cardEl);
-  //cardForm.reset();
-  evt.target.reset();
-  disableButton(cardSubmitButton, settings);
-  //console.log("About to close modal");
-  closeModal(cardModal);
-  //console.log("Modal should be closed");
+
+  api
+    .createCard(inputValues)
+    .then((cardData) => {
+      console.log("New card received from API:", cardData);
+      const cardEl = getCardElement(cardData); // ✅ Using API response ensures `_id`
+      cardsList.prepend(cardEl);
+      closeModal(cardModal);
+      evt.target.reset();
+      disableButton(cardSubmitButton, settings);
+    })
+    .catch((error) => {
+      console.error("Failed to create card:", error);
+      alert("Could not add card. Please try again.");
+    });
 }
 
 function handleAvatarSubmit(evt) {
@@ -157,9 +167,9 @@ function getCardElement(data) {
     cardLikeBtn.classList.toggle("card__like-btn_liked");
   });
 
-  cardDeleteBtn.addEventListener("click", () => {
-    cardElement.remove();
-  });
+  cardDeleteBtn.addEventListener("click", (evt) =>
+    handleDeleteCard(cardElement, data._id)
+  );
 
   cardImageEl.addEventListener("click", () => {
     openModal(previewModal);
@@ -221,4 +231,27 @@ avatarCloseBtn.addEventListener("click", () => {
 
 avatarForm.addEventListener("submit", handleAvatarSubmit);
 
+//Delete form elements
+const deleteModal = document.querySelector("#delete-modal");
+const deleteForm = deleteModal.querySelector(".modal__form");
+
+function handleDeleteCard(cardElement, cardId) {
+  selectedCard = cardElement;
+  selectedCardId = cardId;
+
+  deleteForm.addEventListener("submit", handleDeleteSubmit);
+  openModal(deleteModal);
+
+  function handleDeleteSubmit(evt) {
+    evt.preventDefault();
+    api
+      .deleteCard(selectedCardId)
+      .then(() => {
+        selectedCard.remove();
+        closeModal(deleteModal);
+        deleteForm.removeEventListener("submit", handleDeleteSubmit);
+      })
+      .catch(console.error);
+  }
+}
 enableValidation(settings);
