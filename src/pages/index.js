@@ -7,7 +7,7 @@ import {
   resetValidation,
 } from "../scripts/validation.js";
 import Api from "../utils/Api.js";
-
+import { setButtonText } from "../utils/helpers.js";
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
@@ -91,6 +91,10 @@ document.querySelectorAll(".modal").forEach((modal) => {
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
+  const submitBtn = evt.submitter;
+
+  setButtonText(submitBtn, true);
+
   api
     .editUserInfo({
       name: editModalNameInput.value,
@@ -99,10 +103,12 @@ function handleEditFormSubmit(evt) {
     .then((data) => {
       profileName.textContent = data.name;
       profileDescription.textContent = data.about;
-
       closeModal(editModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
+    });
 }
 
 function handleAddCardSubmit(evt) {
@@ -120,10 +126,7 @@ function handleAddCardSubmit(evt) {
       evt.target.reset();
       disableButton(cardSubmitButton, settings);
     })
-    .catch((error) => {
-      console.error("Failed to create card:", error);
-      alert("Could not add card. Please try again.");
-    });
+    .catch(console.error);
 }
 
 function handleAvatarSubmit(evt) {
@@ -138,12 +141,22 @@ function handleAvatarSubmit(evt) {
       avatarForm.reset();
       disableButton(avatarSubmitButton, settings);
     })
-    .catch((error) => {
-      error.json().then((data) => console.error("Error details:", data)); // Print server response
-      alert("Failed to update avatar. Please try again.");
-    });
+    .catch(console.error);
 }
 
+// Separate function to handle the like logic globally
+function handleLike(evt, id) {
+  const isLiked = evt.target.classList.contains("card__like-btn_liked");
+
+  api
+    .changeLikeStatus(id, !isLiked)
+    .then(() => {
+      evt.target.classList.toggle("card__like-btn_liked", !isLiked);
+    })
+    .catch(console.error);
+}
+
+// Function to create and return a card element
 function getCardElement(data) {
   const cardElement = cardTemplate.content
     .querySelector(".card")
@@ -151,23 +164,24 @@ function getCardElement(data) {
 
   const cardNameEl = cardElement.querySelector(".card__title");
   const cardImageEl = cardElement.querySelector(".card__image");
+  const cardLikeBtn = cardElement.querySelector(".card__like-btn");
+  const cardDeleteBtn = cardElement.querySelector(".card__delete-btn");
 
   cardNameEl.textContent = data.name;
   cardImageEl.src = data.link;
   cardImageEl.alt = `Image of ${data.name}`;
 
-  //basic steps of adding event listener
-  //select the element
-  const cardLikeBtn = cardElement.querySelector(".card__like-btn");
-  const cardDeleteBtn = cardElement.querySelector(".card__delete-btn");
+  // ✅ Ensure `data.likes` exists before checking `.some()`
+  const isLikedByUser =
+    Array.isArray(data.likes) &&
+    data.likes.some((user) => user._id === currentUserId);
+  if (isLikedByUser) {
+    cardLikeBtn.classList.add("card__like-btn_liked");
+  }
 
-  //add the event listener
-  cardLikeBtn.addEventListener("click", () => {
-    //write that handles the event
-    cardLikeBtn.classList.toggle("card__like-btn_liked");
-  });
-
-  cardDeleteBtn.addEventListener("click", (evt) =>
+  // Attach event listeners correctly
+  cardLikeBtn.addEventListener("click", (evt) => handleLike(evt, data._id));
+  cardDeleteBtn.addEventListener("click", () =>
     handleDeleteCard(cardElement, data._id)
   );
 
@@ -177,6 +191,7 @@ function getCardElement(data) {
     previewModalImage.src = data.link;
     previewModalImage.alt = `Image of ${data.name}`;
   });
+
   return cardElement;
 }
 
@@ -193,6 +208,7 @@ profileEditButton.addEventListener("click", () => {
 });
 
 editModalCloseBtn.addEventListener("click", () => {
+  console.log("Close button clicked!");
   closeModal(editModal);
 });
 
@@ -227,6 +243,15 @@ avatarModalBtn.addEventListener("click", () => {
 
 avatarCloseBtn.addEventListener("click", () => {
   closeModal(avatarModal);
+});
+
+document.querySelectorAll(".modal__close-btn").forEach((btn) => {
+  btn.addEventListener("click", (evt) => {
+    const modal = evt.target.closest(".modal");
+    if (modal) {
+      closeModal(modal);
+    }
+  });
 });
 
 avatarForm.addEventListener("submit", handleAvatarSubmit);
