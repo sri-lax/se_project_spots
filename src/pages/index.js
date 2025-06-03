@@ -19,6 +19,8 @@ const api = new Api({
 api
   .getAppInfo()
   .then(([cards, users]) => {
+    currentUserId = users._id;
+
     document.querySelector(".profile__avatar").src = users.avatar;
     document.querySelector(".profile__name").textContent = users.name;
     document.querySelector(".profile__description").textContent = users.about;
