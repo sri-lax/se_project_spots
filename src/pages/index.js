@@ -15,6 +15,7 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
+let currentUserId;
 
 api
   .getAppInfo()
@@ -147,13 +148,26 @@ function handleAvatarSubmit(evt) {
 }
 
 // Separate function to handle the like logic globally
-function handleLike(evt, id) {
-  const isLiked = evt.target.classList.contains("card__like-btn_liked");
+function handleLike(evt, cardId) {
+  if (!cardId) {
+    console.error("Card ID is missing!");
+    return;
+  }
 
+  const likeButton = evt.target;
+  const isLiked = likeButton.classList.contains("card__like-btn_liked");
+
+  // ✅ Send boolean to correctly trigger PUT (like) or DELETE (unlike)
   api
-    .changeLikeStatus(id, !isLiked)
-    .then(() => {
-      evt.target.classList.toggle("card__like-btn_liked", !isLiked);
+    .changeLikeStatus(cardId, isLiked)
+    .then((updatedCard) => {
+      console.log("Updated like state from API:", updatedCard);
+
+      if (updatedCard.isLiked) {
+        likeButton.classList.add("card__like-btn_liked");
+      } else {
+        likeButton.classList.remove("card__like-btn_liked");
+      }
     })
     .catch(console.error);
 }
@@ -169,15 +183,16 @@ function getCardElement(data) {
   const cardLikeBtn = cardElement.querySelector(".card__like-btn");
   const cardDeleteBtn = cardElement.querySelector(".card__delete-btn");
 
+  cardElement.dataset.id = data._id;
+
   cardNameEl.textContent = data.name;
   cardImageEl.src = data.link;
   cardImageEl.alt = `Image of ${data.name}`;
 
+  cardElement.dataset.id = data._id; // ✅ Store card ID in dataset
+
   // ✅ Ensure `data.likes` exists before checking `.some()`
-  const isLikedByUser =
-    Array.isArray(data.likes) &&
-    data.likes.some((user) => user._id === currentUserId);
-  if (isLikedByUser) {
+  if (data.isLiked) {
     cardLikeBtn.classList.add("card__like-btn_liked");
   }
 
@@ -210,8 +225,8 @@ profileEditButton.addEventListener("click", () => {
 });
 
 editModalCloseBtn.addEventListener("click", () => {
-  console.log("Close button clicked!");
-  closeModal(editModal);
+  console.log("Closing edit modal...");
+  closeModal(document.querySelector("#edit-modal"));
 });
 
 cardModalBtn.addEventListener("click", () => {
@@ -250,7 +265,12 @@ avatarCloseBtn.addEventListener("click", () => {
 document.querySelectorAll(".modal__close-btn").forEach((btn) => {
   btn.addEventListener("click", (evt) => {
     const modal = evt.target.closest(".modal");
-    if (modal) {
+    if (!modal) return;
+
+    console.log(`Attempting to close modal: ${modal.id}`);
+
+    // ✅ Ensure only `edit-modal` closes
+    if (modal.id === "edit-modal") {
       closeModal(modal);
     }
   });
@@ -281,4 +301,10 @@ function handleDeleteCard(cardElement, cardId) {
       .catch(console.error);
   }
 }
-enableValidation(settings);
+
+//cancel delete modal
+const cancelModal = document.querySelector("#cancel-form-btn");
+
+cancelModal.addEventListener("click", () => {
+  closeModal(deleteModal);
+});
