@@ -17,11 +17,6 @@
   visibility: hidden;
 }
 
-.profile__avatar-container:hover .profile__avatar-btn {
-  visibility: visible;
-  color: rgba(164, 164, 164, 1);
-}
-
 .profile__avatar-btn::after {
   content: "Edit Avatar";
 }
@@ -31,6 +26,11 @@
   height: 190px;
   width: 190px;
   border-radius: 8px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.profile__avatar:hover {
+  filter: opacity(50%);
 }
 
 .profile__column {

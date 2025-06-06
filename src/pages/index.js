@@ -117,7 +117,20 @@ function handleEditFormSubmit(evt) {
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
 
-  const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
+  const submitBtn = evt.submitter; // Reference the submit button
+  setButtonText(submitBtn, true, "Create", "Saving..."); // Show loading state
+
+  const nameValue = cardNameInput.value.trim();
+  const linkValue = cardLinkInput.value.trim();
+
+  if (!nameValue || !linkValue) {
+    console.error("Error: Name and link fields cannot be empty.");
+    alert("Please fill out both the name and link fields.");
+    setButtonText(submitBtn, false, "Create", "Saving...");
+    return;
+  }
+
+  const inputValues = { name: nameValue, link: linkValue };
 
   api
     .createCard(inputValues)
@@ -132,13 +145,22 @@ function handleAddCardSubmit(evt) {
     .catch(console.error);
 }
 
+const avatarModalBtn = document.querySelector(".profile__avatar-btn");
+const avatarModal = document.querySelector("#avatar-modal");
+const avatarCloseBtn = avatarModal.querySelector(".modal__close-btn");
+const avatarSubmitButton = avatarModal.querySelector(".modal__submit-btn");
+const avatarForm = avatarModal.querySelector(".modal__form");
+const avatarInputEl = avatarModal.querySelector("#profile-avatar-input");
+
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
+
+  const submitBtn = evt.submitter; // Get the button reference
+  setButtonText(submitBtn, true, "Save", "Saving...");
 
   api
     .editAvatarUserInfo(avatarInputEl.value)
     .then((data) => {
-      console.log("Updated avatar:", data);
       document.querySelector(".profile__avatar").src = data.avatar;
       closeModal(avatarModal);
       avatarForm.reset();
@@ -146,6 +168,8 @@ function handleAvatarSubmit(evt) {
     })
     .catch(console.error);
 }
+
+avatarForm.addEventListener("submit", handleAvatarSubmit);
 
 // Separate function to handle the like logic globally
 function handleLike(evt, cardId) {
@@ -247,13 +271,6 @@ cardForm.addEventListener("submit", handleAddCardSubmit);
 
 //Avatar Modal Form Elements
 
-const avatarModalBtn = document.querySelector(".profile__avatar-btn");
-const avatarModal = document.querySelector("#avatar-modal");
-const avatarCloseBtn = avatarModal.querySelector(".modal__close-btn");
-const avatarSubmitButton = avatarModal.querySelector(".modal__submit-btn");
-const avatarForm = avatarModal.querySelector(".modal__form");
-const avatarInputEl = avatarModal.querySelector("#profile-avatar-input");
-
 avatarModalBtn.addEventListener("click", () => {
   openModal(avatarModal);
 });
@@ -307,4 +324,11 @@ const cancelModal = document.querySelector("#cancel-form-btn");
 
 cancelModal.addEventListener("click", () => {
   closeModal(deleteModal);
+});
+enableValidation(settings);
+
+const deleteModalCloseBtn = document.querySelector("#delete-modal-close-btn");
+
+deleteModalCloseBtn.addEventListener("click", () => {
+  closeModal(document.querySelector("#delete-modal"));
 });
