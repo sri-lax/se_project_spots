@@ -308,14 +308,25 @@ function handleDeleteCard(cardElement, cardId) {
 
   function handleDeleteSubmit(evt) {
     evt.preventDefault();
+
+    const submitBtn = evt.submitter;
+
+    // Show loading state
+    submitBtn.textContent = "Deleting...";
+    submitBtn.disabled = true;
+
     api
       .deleteCard(selectedCardId)
       .then(() => {
         selectedCard.remove();
         closeModal(deleteModal);
-        deleteForm.removeEventListener("submit", handleDeleteSubmit);
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => {
+        // Reset button text and enable it again
+        submitBtn.textContent = "Delete";
+        submitBtn.disabled = false;
+      });
   }
 }
 

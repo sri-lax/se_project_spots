@@ -21,6 +21,13 @@
   content: "Edit Avatar";
 }
 
+.profile__avatar-container:hover .profile__avatar-btn {
+  visibility: visible;
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  color: white;
+}
+
 .profile__avatar {
   margin-right: 20px;
   height: 190px;
