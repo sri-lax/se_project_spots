@@ -142,7 +142,10 @@ function handleAddCardSubmit(evt) {
       evt.target.reset();
       disableButton(cardSubmitButton, settings);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
+    });
 }
 
 const avatarModalBtn = document.querySelector(".profile__avatar-btn");
@@ -166,7 +169,10 @@ function handleAvatarSubmit(evt) {
       avatarForm.reset();
       disableButton(avatarSubmitButton, settings);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
+    });
 }
 
 avatarForm.addEventListener("submit", handleAvatarSubmit);
@@ -299,35 +305,38 @@ avatarForm.addEventListener("submit", handleAvatarSubmit);
 const deleteModal = document.querySelector("#delete-modal");
 const deleteForm = deleteModal.querySelector(".modal__form");
 
+function handleDeleteSubmit(evt) {
+  evt.preventDefault();
+
+  const submitBtn = evt.submitter;
+
+  // Show loading state
+  submitBtn.textContent = "Deleting...";
+  submitBtn.disabled = true;
+
+  api
+    .deleteCard(selectedCardId)
+    .then(() => {
+      selectedCard.remove();
+      closeModal(deleteModal);
+    })
+    .catch(console.error)
+    .finally(() => {
+      // Reset button text and enable it again
+      submitBtn.textContent = "Delete";
+      submitBtn.disabled = false;
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  deleteForm.addEventListener("submit", handleDeleteSubmit);
+});
+
 function handleDeleteCard(cardElement, cardId) {
   selectedCard = cardElement;
   selectedCardId = cardId;
 
-  deleteForm.addEventListener("submit", handleDeleteSubmit);
   openModal(deleteModal);
-
-  function handleDeleteSubmit(evt) {
-    evt.preventDefault();
-
-    const submitBtn = evt.submitter;
-
-    // Show loading state
-    submitBtn.textContent = "Deleting...";
-    submitBtn.disabled = true;
-
-    api
-      .deleteCard(selectedCardId)
-      .then(() => {
-        selectedCard.remove();
-        closeModal(deleteModal);
-      })
-      .catch(console.error)
-      .finally(() => {
-        // Reset button text and enable it again
-        submitBtn.textContent = "Delete";
-        submitBtn.disabled = false;
-      });
-  }
 }
 
 //cancel delete modal
@@ -339,7 +348,3 @@ cancelModal.addEventListener("click", () => {
 enableValidation(settings);
 
 const deleteModalCloseBtn = document.querySelector("#delete-modal-close-btn");
-
-deleteModalCloseBtn.addEventListener("click", () => {
-  closeModal(document.querySelector("#delete-modal"));
-});
