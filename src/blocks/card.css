@@ -35,6 +35,7 @@
   height: 20px;
   border: none;
   background-color: transparent;
+
   opacity: 40%;
 }
 .card__like-btn:hover {
@@ -43,7 +44,8 @@
   transition: opacity 0.5s;
 }
 .card__like-btn_liked {
-  background-image: url(../images/redheart.svg);
+  background-image: url(../images/redheart.svg) !important;
+
   opacity: 1;
   background-color: transparent;
 }
@@ -81,6 +83,17 @@
   border-radius: 50%; /* Ensures a perfect circle */
   transform: translate(-50%, -50%);
   background: transparent;
+}
+
+.modal__title-delete {
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  width: 590px;
+  height: 24px;
 }
 
 @media screen and (max-width: 627px) {
